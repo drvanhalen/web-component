@@ -1,0 +1,33 @@
+<template class="template">
+    <h2>Component</h2>
+    <div>
+        <p class="text"></p>
+    </div>
+
+    <script type="text/javascript">
+        var eventSource = new EventSource('http://chrisskilton.co.uk/events');
+
+        eventSource.addEventListener('message', function(e) {
+            root.querySelector('.text').innerHTML = e.data;
+        }, false);
+    </script>
+</template>
+<bw-component></div>
+<script type="text/javascript">
+    var root;
+    var doc = this.document.currentScript.ownerDocument;
+
+    // Register our new element
+    var BwComponent = document.registerElement('bw-component', {
+        prototype: Object.create(HTMLElement.prototype, {
+            createdCallback: {
+                value: function() {
+                    var template = doc.querySelector('.template');
+                    root = this.createShadowRoot();
+                    var clone = template.content.cloneNode(true);
+                    root.appendChild(clone);
+                }
+            }
+        })
+    });
+</script>
