@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <template class="template">
+        <h2>Component</h2>
+        <div>
+            <p class="text"></p>
+        </div>
+
+        <script type="text/javascript">
+            var eventSource = new EventSource('http://chrisskilton.co.uk/events');
+
+            eventSource.addEventListener('message', function(e) {
+                root.querySelector('.text').innerHTML = e.data;
+            }, false);
+        </script>
+    </template>
+    <bw-component></div>
+    <script type="text/javascript">
+        var template = document.querySelector('.template')
+        var root;
+
+        // Create a prototype for a new element that extends HTMLElement
+        var BwComponentProto = Object.create(HTMLElement.prototype);
+
+        // Setup our Shadow DOM and clone the template
+        BwComponentProto.createdCallback = function() {
+            root = this.createShadowRoot();
+            root.appendChild(document.importNode(template.content, true));
+        };
+
+        // Register our new element
+        var BwComponent = document.registerElement('bw-component', {
+            prototype: BwComponentProto
+        });
+    </script>
+</body>
+</html>
