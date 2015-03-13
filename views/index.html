@@ -10,7 +10,7 @@
         </div>
 
         <script type="text/javascript">
-            var eventSource = new EventSource('http://chrisskilton.co.uk:3000/events');
+            var eventSource = new EventSource('http://chrisskilton.co.uk/events');
 
             eventSource.addEventListener('message', function(e) {
                 root.querySelector('.text').innerHTML = e.data;
