@@ -19,7 +19,7 @@
     </template>
     <bw-component></div>
     <script type="text/javascript">
-        var template = document.querySelector('.template')
+        var template = document.currentScript.ownerDocument.querySelector('.template')
         var root;
 
         // Create a prototype for a new element that extends HTMLElement
@@ -28,11 +28,11 @@
         // Setup our Shadow DOM and clone the template
         BwComponentProto.createdCallback = function() {
             root = this.createShadowRoot();
-            root.appendChild(document.importNode(template.content, true));
+            root.appendChild(document.currentScript.ownerDocument.importNode(template.content, true));
         };
 
         // Register our new element
-        var BwComponent = document.registerElement('bw-component', {
+        var BwComponent = document.currentScript.ownerDocument.registerElement('bw-component', {
             prototype: BwComponentProto
         });
     </script>
